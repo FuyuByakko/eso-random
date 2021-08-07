@@ -24,7 +24,7 @@
             <th width="18%"> Tank </th>
             <th width="18%"> Healer </th>
             <th width="18%"> DPS </th>
-            <th width="18%"> </th>
+            <th width="10%"> </th>
           </tr>
           <tr v-for="player in groupPlayers" :key="player.name">
             <td> {{player.name}} </td>
@@ -38,7 +38,7 @@
               <img :src="player.dps ? roleLogos.dpsOn : roleLogos.dpsOff" />
             </td>
             <td @click="removePlayer(player)">
-              <!-- <img :src="" /> -->X
+              <img class="delete_icon" :src="deleteIcon" />
             </td>
           </tr>
         </table>
@@ -56,6 +56,7 @@ import healOff from "../assets/heal_off.png"
 import dpsOn from "../assets/dps_on.png"
 import dpsOff from "../assets/dps_off.png"
 import state from '../store/selections'
+import deleteIcon from '../assets/delete-2-32.png';
 
 export default {
   name: 'Group Management',
@@ -108,6 +109,7 @@ export default {
       newPlayerName,
       newNameError,
       roleLogos,
+      deleteIcon,
     }
   }
 }
@@ -242,6 +244,10 @@ input {
 .member_inputs button {
   padding: 7px;
   border-radius: 5px
+}
+.delete_icon {
+  width: 30%;
+  height: auto;
 }
 
 @media screen and (max-width: 1100px) {
