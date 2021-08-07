@@ -132,7 +132,7 @@ a {
   min-width: 210px;
 }
 .options{
-  width: 95%;
+  width: 90%;
   max-height: 99%;
   grid-area: options;
   border: 2px solid #a9927c;

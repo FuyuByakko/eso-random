@@ -37,6 +37,10 @@ export function randomizeRoles() {
     state.groupError = 'All "Roles Required" cannot be 0.';
     return
   }
+  if (state.group.requiredTanks === 0 && state.group.requiredHealers === 0 && state.group.requiredDps === 0) {
+    state.groupError = 'All "Roles Required" cannot be 0.';
+    return
+  }
   const totalTanks = +state.group.requiredTanks;
   const totalHealers = +state.group.requiredHealers;
   const totalDps = +state.group.requiredDps;
@@ -49,9 +53,10 @@ export function randomizeRoles() {
     totalDps < 0 ||
     totalTanks > 24 ||
     totalHealers >24 ||
-    totalDps >24
+    totalDps >24 ||
+    totalTanks + totalHealers + totalDps > 24
   ) {
-    state.groupError = 'Invalid "Roles Required" input';
+    state.groupError = 'Invalid "Roles Required" input. Total must be between 1 and 24.';
     return;
   }
   

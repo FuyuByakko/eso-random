@@ -14,7 +14,7 @@
       <h3> Member List: </h3>
       <p>{{newNameError}}</p>
       <span class="member_inputs">
-        <input v-model="newPlayerName" type="text" @keyup.enter="addPlayer" :placeholder="'Input name and select roles..'" >
+        <input v-model="newPlayerName" type="text" @keyup.enter="addPlayer" :placeholder="'Input member name..'" >
         <button @click="addPlayer">Add Member</button>
       </span>
       <div class="players_table">
@@ -214,6 +214,8 @@ input {
 .players {
   width: 100%;
   padding: 0px 10px;
+  border: 2px solid #a9927c;
+  border-radius: 5px;
 }
 .players_table {
   width: 100%;
@@ -266,6 +268,14 @@ input {
   display: grid;
   grid-template-rows: minmax(120px, 1fr) 7fr;
   grid-template-columns: 90%;
+  }
+}
+@media screen and (max-width: 750px) {
+  .required {
+    row-gap: 5px;
+  }
+  .group {
+    row-gap: 5px;
   }
 }
 </style>    

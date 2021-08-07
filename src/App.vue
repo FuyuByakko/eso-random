@@ -44,7 +44,6 @@ html, body {
   min-height: 0px;
   min-width: 1100px;
   margin: auto;
-
   display: grid;
   grid-template-columns: 600px minmax(420px, 500px);
   grid-template-rows: 70px minmax(370px, 70%) minmax(200px, 20%);
@@ -57,9 +56,13 @@ html, body {
 }
 .title1 {
   grid-area: title1;
+  width: 100%;
+  height: 100%;
 }
 .title2 {
   grid-area: title2;
+  width: 100%;
+  height: 100%;
 }
 .activitySelections {
   grid-area: activities;
@@ -78,13 +81,20 @@ html, body {
 }
 
 @media screen and (max-width: 750px) {
+  .title1, .title2 {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+  }
   #app {
     display: grid;
-    min-width: 700px;
     height: 100%;
     width: 100%;
-    grid-template-columns: 90%;
-    grid-template-rows: 70px 50vh 70px 30vh 15vh;
+    min-width: 550px;
+    grid-template-columns: 100%;
+    grid-template-rows: auto 370px auto minmax(400px, 550px) minmax(250px,400px);
+    justify-content: center;
+    align-items: start;
     row-gap: 5px;
     column-gap: 15px;
     grid-template-areas: 

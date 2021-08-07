@@ -40,20 +40,22 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 h3, h2 {
-  margin: 10px 0;
+  margin: 10px;
 }
 h3 {
-  font-size: 1.1rem;
+  font-size: 1.1em;
 }
 h2 {
-  font-size: 1.3rem;
+  font-size: 1.3em;
+}
+strong {
+  color: whitesmoke;
 }
 .results {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-content: center;
-  height: 100%;
   min-height: 0;
   min-width: 0;
 }
@@ -61,8 +63,9 @@ h2 {
   width: 30%;
   min-width: 150px;
   height: 100%;
-  margin: 0 20px;
   text-align: center;
+  border: 2px solid #a9927c;
+  border-radius: 5px;
 }
 .selection_list {
   color: whitesmoke;
@@ -89,5 +92,35 @@ h2 {
 }
 .randomizer_results {
   min-width: 40%;
+  border: 2px solid #a9927c;
+  border-radius: 5px;
+}
+
+@media screen and (max-width: 750px) {
+  .results {
+    row-gap: 5px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .activity_selections {
+    width: 48%;
+    height: 70%;
+    order: 1;
+  }
+  .randomizer_results {
+    width: 48%;
+    height: 70%;
+    order: 2;
+    flex-direction: row;
+    overflow: hidden;
+    overflow-y: auto;
+  }
+  .buttons { 
+    width: 100%;
+    flex-direction: row;
+    margin: 0;
+    height: 30%;
+    order: 3;
+  }
 }
 </style>
