@@ -246,8 +246,10 @@ input {
   border-radius: 5px
 }
 .delete_icon {
-  width: 30%;
+  width: 40%;
+  max-width: 25px;
   height: auto;
+  margin: 0;
 }
 
 @media screen and (max-width: 1100px) {
