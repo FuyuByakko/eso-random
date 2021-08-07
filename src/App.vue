@@ -24,8 +24,11 @@ export default {
 
 <style>
 html, body {
+  box-sizing: border-box;
   margin: 0 auto;
   padding: 0;
+  width: 100vw;
+  height: 100vh;
   background: #0A0602;
   background-image: url("https://esossl-a.akamaihd.net/uploads/website/Q3ZeOwb7aw/eso-bg-texture-3.png");
   text-shadow: 0px 0px 1px #000,0px 1px 1px #000,0px 1px 10px #000;
@@ -36,13 +39,15 @@ html, body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  margin: 0 auto;
-  height: 95vmin;
-  max-width: 1100px;
-  min-width: 750px;
+  height: 95%;
+  width: 70%;
+  min-height: 0px;
+  min-width: 1100px;
+  margin: auto;
+
   display: grid;
-  grid-template-columns: 600px 1fr;
-  grid-template-rows: 70px 2fr 1fr;
+  grid-template-columns: 600px minmax(420px, 500px);
+  grid-template-rows: 70px minmax(370px, 70%) minmax(200px, 20%);
   row-gap: 5px;
   column-gap: 15px;
   grid-template-areas: 
@@ -58,15 +63,36 @@ html, body {
 }
 .activitySelections {
   grid-area: activities;
-  max-height: 60vh;
+  width: 100%;
+  height: 100%;
 }
 .group {
-  min-width: 420px;
-  max-height: 60vh;
+  width: 100%;
+  height: 100%;
   grid-area: group;
 }
 .results {
   width: 100%;
+  height: 100%;
   grid-area: results;
+}
+
+@media screen and (max-width: 750px) {
+  #app {
+    display: grid;
+    min-width: 700px;
+    height: 100%;
+    width: 100%;
+    grid-template-columns: 90%;
+    grid-template-rows: 70px 50vh 70px 30vh 15vh;
+    row-gap: 5px;
+    column-gap: 15px;
+    grid-template-areas: 
+      "title1"
+      "activities"
+      "title2"
+      "group"
+      "results";
+  }
 }
 </style>

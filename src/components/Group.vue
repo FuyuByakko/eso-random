@@ -130,23 +130,28 @@ input {
 }
 
 .group {
+  height: 100%;
+  width: 100%;
   display: grid;
-  grid-template-rows: 8vh 50vh;
+  grid-template-rows: minmax(75px, 1fr) 7fr;
+  grid-template-columns: 90%;
   grid-template-areas: 
     "required"
     "group";
   row-gap: 20px;
-  align-items: center;
+  align-content: start;
   justify-content: center;
-  padding: 5px;
   user-select: none;
   text-align: left;
+  min-height: 0;
+  min-width: 0;
 }
 .required {
+  height: 100%;
+  width: 95%;
   grid-area: required;
-  padding: 0px 5px;
   display: grid;
-  grid-template-columns: 1.5fr 1fr 1.5fr 1fr 1.5fr 1fr;
+  grid-template-columns: repeat(3, minmax(70px, 7fr), minmax(50px, 5fr));
   grid-template-rows: 20px 20px;
   min-width: 300px;
   row-gap: 15px;
@@ -154,6 +159,8 @@ input {
   grid-template-areas: 
     "required_header required_header required_header required_header required_header required_header"
     "required_tanks_header required_tanks_input required_healers_header required_healers_input required_dps_header required_dps_input";
+  justify-content: center;
+  align-content: center;
   justify-items: center;
   align-items: center;
 }
@@ -163,6 +170,7 @@ input {
 .required_header_tanks {
   grid-area: required_tanks_header;
   min-width: 70px;
+  text-align: right;
 }
 .required_input_tanks {
   grid-area: required_tanks_input;
@@ -172,6 +180,7 @@ input {
 .required_header_healers {
   grid-area: required_healers_header;
   min-width: 70px;
+  text-align: right;
 }
 .required_input_healers {
   grid-area: required_healers_input;
@@ -181,6 +190,7 @@ input {
 .required_header_dps {
   grid-area: required_dps_header;
   min-width: 70px;
+  text-align: right;
 }
 .required_input_dps {
   grid-area: required_dps_input;
@@ -194,8 +204,11 @@ input {
   height: 100%;
   display: flex;  
   flex-direction: column;
-  align-items: center;
+  align-content: center;
   justify-content: flex-start;
+  text-align: center;
+  min-height: 0;  /* NEW */
+  min-width: 0;
 }
 
 .players {
@@ -214,5 +227,45 @@ input {
 }
 .member_inputs {
   margin: 10px 0;
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-content: center;
+}
+.member_inputs input {
+  padding: 7px;
+  margin-right: 5px;
+}
+.member_inputs button {
+  padding: 7px;
+  border-radius: 5px
+}
+
+@media screen and (max-width: 1100px) {
+  .required {
+    grid-area: required;
+    padding: 0px 5px;
+    display: grid;
+    grid-template-columns: 7fr 5fr;
+    grid-template-rows: 20px 20px 20px 20px;
+    min-width: 300px;
+    row-gap: 10px;
+    column-gap: 5px;
+    grid-template-areas: 
+      "required_header required_header"
+      "required_tanks_header required_tanks_input"
+      "required_healers_header required_healers_input"
+      "required_dps_header required_dps_input";
+    justify-items: center;
+    align-items: center;
+  }
+  .group {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-rows: minmax(120px, 1fr) 7fr;
+  grid-template-columns: 90%;
+  }
 }
 </style>    

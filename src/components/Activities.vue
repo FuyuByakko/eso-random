@@ -11,10 +11,15 @@
     </h3>
   </div>
   <div class="options">
-    <h3 class="colData" @click="toggleAllGroup"> {{currentGroup.slice(3)}}: {{groupAllSelected ? '(Deselect all)' : '(Select all)' }} </h3>
-    <div v-for="activity in currentGroupOptions" :key="activity" class="colData">
-      <input type="checkbox" v-model="selections" :id="activity" :value="activity" @change="changeSelectAllLabel">
+    <h3 class="colData" @click="toggleAllGroup(currentGroup)"> {{currentGroup.slice(3)}}: {{allSelected[currentGroup] ? '(Deselect all)' : '(Select all)' }} </h3>
+    <div v-for="activity in currentGroupOptions" :key="activity" class="activities">
+      <input type="checkbox" v-model="selections" :id="activity" :value="activity" @change="changeSelectAllLabel(currentGroup)">
       <label :for="activity">{{activity}}</label>
+      <img class="delete_icon" :src="deleteIcon" v-if="customRandom(activity)" @click="removeActivity(activity)"/>
+    </div>
+    <div class="activity_inputs" v-if="randomCategory">
+      <input v-model="newActivityName" type="text" @keyup.enter="addActivity" :placeholder="'Input random activities'" >
+      <button @click="addPlayer">Add Activity</button>
     </div>
   </div>
 </div>
@@ -22,7 +27,9 @@
 
 <script>
 import { ref, reactive,  toRefs, computed } from 'vue';
-import state from '../store/selections'
+import state from '../store/selections';
+import deleteIcon from '../assets/delete-2-32.png';
+import { defaultRandoms } from '../store/activityOptions';
 
 export default {
   name: 'Activities',
@@ -34,9 +41,8 @@ export default {
     
     const allSelected = reactive({})
     allSelected[currentGroup] = false;
-    const groupAllSelected = computed(() => allSelected[currentGroup]);
     
-    const toggleAllGroup = () => {
+    const toggleAllGroup = (currentGroup) => {
       allSelected[currentGroup] = !allSelected[currentGroup];
       const setOfSelections = new Set(state.selections);
       currentGroupOptions.value.forEach( activity => {
@@ -49,11 +55,47 @@ export default {
       state.selections = [...setOfSelections];
     };
 
-    const changeSelectAllLabel =  () => {
+    const changeSelectAllLabel =  (currentGroup) => {
       allSelected[currentGroup] = currentGroupOptions.value.every(activity => state.selections.includes(activity))
     };
 
-    return { ...toRefs(state), setCurrentOptionsGroup, currentGroupOptions, currentGroup, toggleAllGroup, groupAllSelected, changeSelectAllLabel }
+    const customActivities = ref([]);
+    const newActivityName = ref("")
+    function addActivity() {
+      if (!newActivityName.value || newActivityName.value.length < 1 || newActivityName.value.length > 20) {
+        return;
+      }
+
+      state.options["7. Random Fun"].push(newActivityName.value);
+      newActivityName.value = "";
+    }
+    const randomCategory = computed(() => {
+      return currentGroup.value === '7. Random Fun'
+    })
+    const customRandom = (activityName) => {
+      return currentGroup.value === '7. Random Fun' && !defaultRandoms().includes(activityName)
+    }
+    const removeActivity = (activityName) => {
+      const indexToRemove = state.options["7. Random Fun"].indexOf(activityName);
+      state.options["7. Random Fun"].splice(indexToRemove, 1);
+    }
+
+    return {
+      ...toRefs(state),
+      setCurrentOptionsGroup,
+      currentGroupOptions,
+      currentGroup,
+      toggleAllGroup,
+      allSelected,
+      changeSelectAllLabel,
+      newActivityName,
+      addActivity,
+      removeActivity,
+      customActivities,
+      randomCategory,
+      customRandom,
+      deleteIcon,
+    }
   }
 }
 </script>
@@ -67,7 +109,7 @@ a {
 .cols {
   display: grid;
   grid-template-columns: 1fr 2fr;
-  grid-template-rows: auto;
+  grid-template-rows: 100%;
   grid-template-areas: 
     "categories options";
   column-gap: 10px;
@@ -75,23 +117,27 @@ a {
   justify-content: start;
   text-align: left;
 }
-.colData {
+.colData, activities {
   margin: 5px;
   padding: 2px;
   user-select: none;
 }
+.activities {
+  width: 100%;
+}
 .categories{
-  margin: 5px 10px;
+  width: 100%;
+  height: 100%;
   grid-area: categories;
   min-width: 210px;
 }
 .options{
+  width: 95%;
+  max-height: 99%;
   grid-area: options;
-  margin: 5px 10px;
   border: 2px solid #a9927c;
   border-radius: 5px;
   padding-left: 15px;
-  max-height: 100%;
   overflow: auto;
 }
 .categoryTitle {
@@ -113,6 +159,27 @@ a {
 label {
   margin-left: 10px;
   font-size: 1.3rem;
+}
+.delete_icon {
+  width: 12px;
+  height: auto;
+  margin-left: 10px;
+}
+.activity_inputs {
+  margin: 10px 0;
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-content: center;
+}
+.activity_inputs input {
+  padding: 7px;
+  margin-right: 5px;
+}
+.activity_inputs button {
+  padding: 7px;
+  border-radius: 5px
 }
 </style>
 
